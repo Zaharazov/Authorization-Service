@@ -1,0 +1,88 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "API для сервиса авторизации",
+        "title": "Authorization Service API",
+        "contact": {},
+        "version": "1.0"
+    },
+    "host": "localhost:8080",
+    "basePath": "/v1",
+    "paths": {
+        "/v1/remember/": {
+            "post": {
+                "description": "Авторизовать нового пользователя",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Authorize a new user",
+                "parameters": [
+                    {
+                        "description": "User must be logged in",
+                        "name": "User",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.ResponseUser"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "{\"token\", \"user_id\"}",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "{\"message\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "{\"message\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "models.ResponseUser": {
+            "type": "object",
+            "properties": {
+                "login": {
+                    "description": "Login for User",
+                    "type": "string"
+                },
+                "password": {
+                    "description": "Password for User",
+                    "type": "string"
+                },
+                "roles": {
+                    "description": "Roles that belong to the User",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "user_id": {
+                    "description": "User ID",
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

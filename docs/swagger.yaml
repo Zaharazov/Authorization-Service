@@ -1,0 +1,59 @@
+basePath: /v1
+definitions:
+  models.ResponseUser:
+    properties:
+      login:
+        description: Login for User
+        type: string
+      password:
+        description: Password for User
+        type: string
+      roles:
+        description: Roles that belong to the User
+        items:
+          type: string
+        type: array
+      user_id:
+        description: User ID
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: API для сервиса авторизации
+  title: Authorization Service API
+  version: "1.0"
+paths:
+  /v1/remember/:
+    post:
+      consumes:
+      - application/json
+      description: Авторизовать нового пользователя
+      parameters:
+      - description: User must be logged in
+        in: body
+        name: User
+        required: true
+        schema:
+          $ref: '#/definitions/models.ResponseUser'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: '{"token", "user_id"}'
+          schema:
+            items:
+              type: string
+            type: array
+        "400":
+          description: '{"message"}'
+          schema:
+            type: string
+        "500":
+          description: '{"message"}'
+          schema:
+            type: string
+      summary: Authorize a new user
+      tags:
+      - Users
+swagger: "2.0"
